@@ -1,7 +1,7 @@
 package modelo.recurso;
 
 public interface Prestable {
-    void prestar();
-    void devolver();
+    boolean prestar();
+    boolean devolver();
     boolean estaPrestado();
 }
