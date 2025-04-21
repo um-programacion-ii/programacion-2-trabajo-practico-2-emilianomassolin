@@ -12,10 +12,13 @@ public class GestorRecursos {
     }
 
     public void listarRecursos() {
-        if (recursos.isEmpty()) {
-            System.out.println("No hay recursos disponibles.");
-        } else {
-            recursos.forEach(r -> System.out.println(r.getDescripcion()));
+        for (RecursoDigital recurso : recursos) {
+            System.out.println("Título: " + recurso.getTitulo());
+            System.out.println("Descripción: " + recurso.getDescripcion());
+            System.out.println("Estado: " + recurso.getEstado());
+            System.out.println("----------------------------------");
         }
     }
+
+
 }
