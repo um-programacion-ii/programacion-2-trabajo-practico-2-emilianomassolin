@@ -1,8 +1,11 @@
 package modelo.recurso;
 
-public class Revista implements RecursoDigital {
+public class Revista implements RecursoDigital, Prestable, Renovable {
     private final String titulo;
     private final int numeroEdicion;
+    private boolean prestado = false;
+    private int renovaciones = 0;
+    private final int MAX_RENOVACIONES = 1;
 
     public Revista(String titulo, int numeroEdicion) {
         this.titulo = titulo;
@@ -25,7 +28,41 @@ public class Revista implements RecursoDigital {
     }
 
     @Override
+    public boolean prestar() {
+        if (!prestado) {
+            prestado = true;
+            renovaciones = 0;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean devolver() {
+        if (prestado) {
+            prestado = false;
+            renovaciones = 0;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean estaPrestado() {
+        return prestado;
+    }
+
+    @Override
+    public boolean renovar() {
+        if (prestado && renovaciones < MAX_RENOVACIONES) {
+            renovaciones++;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String getEstado() {
-        return "";
+        return prestado ? "PRESTADO (Renovaciones: " + renovaciones + ")" : "DISPONIBLE";
     }
 }
