@@ -70,4 +70,9 @@ public class Revista implements RecursoDigital, Prestable, Renovable {
     public String getEstado() {
         return prestado ? "PRESTADO (Renovaciones: " + renovaciones + ")" : "DISPONIBLE";
     }
+
+    @Override
+    public String getCategoria() {
+        return "Revista";
+    }
 }

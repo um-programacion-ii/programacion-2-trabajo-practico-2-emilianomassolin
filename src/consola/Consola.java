@@ -6,6 +6,7 @@ import modelo.recurso.*;
 import modelo.usuario.Usuario;
 import notificaciones.ServicioNotificaciones;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Consola {
@@ -35,6 +36,8 @@ public class Consola {
             System.out.println("8. Renovar Recurso");
             System.out.println("9. Buscar usuario por ID");
             System.out.println("10 Buscar recurso por titulo");
+            System.out.println("11 Filtrar recurso por categoria");
+
 
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -51,6 +54,7 @@ public class Consola {
                 case 8 -> renovarRecurso();
                 case 9 -> buscarUsuarioPorId();
                 case 10 -> buscarRecursoPorTitulo();
+                case 11 -> filtrarRecursosPorCategoria();
 
                 default -> System.out.println("Opción inválida");
             }
@@ -186,6 +190,20 @@ public class Consola {
             System.out.println("❌ No se encontró ningún recurso con ese título.");
         }
     }
+    private void filtrarRecursosPorCategoria() {
+        System.out.print("Ingrese la categoría (Libro, Revista, Audiolibro): ");
+        String categoria = scanner.nextLine();
+
+        List<RecursoDigital> filtrados = gestorRecursos.filtrarPorCategoria(categoria);
+
+        if (filtrados.isEmpty()) {
+            System.out.println("❌ No se encontraron recursos en la categoría: " + categoria);
+        } else {
+            System.out.println("📂 Recursos encontrados en categoría " + categoria + ":");
+            filtrados.forEach(System.out::println);
+        }
+    }
+
 
 
 

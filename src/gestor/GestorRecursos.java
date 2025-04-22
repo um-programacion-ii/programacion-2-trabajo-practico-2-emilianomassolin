@@ -25,6 +25,13 @@ public class GestorRecursos {
                 .findFirst()
                 .orElse(null);
     }
+    public List<RecursoDigital> filtrarPorCategoria(String categoria) {
+        return recursos.stream()
+                .filter(r -> r.getCategoria().equalsIgnoreCase(categoria))
+                .toList(); // Java 16+; si usás Java 8, reemplazá con `.collect(Collectors.toList())`
+    }
+
+
 
 
 
