@@ -2,9 +2,7 @@ package consola;
 
 import gestor.GestorRecursos;
 import gestor.GestorUsuarios;
-import modelo.recurso.Audiolibro;
-import modelo.recurso.Libro;
-import modelo.recurso.Revista;
+import modelo.recurso.*;
 import modelo.usuario.Usuario;
 
 import java.util.Scanner;
@@ -29,6 +27,9 @@ public class Consola {
             System.out.println("3. Salir");
             System.out.println("4. Registrar Recurso");
             System.out.println("5. Listar Recursos");
+            System.out.println("6. Prestar Recurso");
+            System.out.println("7. Devolver Recurso");
+            System.out.println("8. Renovar Recurso");
 
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -40,6 +41,9 @@ public class Consola {
                 case 3 -> System.out.println("Finalizando...");
                 case 4 -> registrarRecurso();
                 case 5 -> gestorRecursos.listarRecursos();
+                case 6 -> prestarRecurso();
+                case 7 -> devolverRecurso();
+                case 8 -> renovarRecurso();
 
                 default -> System.out.println("Opción inválida");
             }
@@ -104,5 +108,53 @@ public class Consola {
         gestorRecursos.agregarRecurso(new Audiolibro(titulo, narrador));
         System.out.println("✅ Audiolibro registrado.");
     }
+    private void prestarRecurso() {
+        System.out.print("Ingrese el título del recurso a prestar: ");
+        String titulo = scanner.nextLine();
+        var recurso = gestorRecursos.buscarPorTitulo(titulo);
+
+        if (recurso instanceof Prestable prestable) {
+            if (prestable.prestar()) {
+                System.out.println("✅ Recurso prestado exitosamente.");
+            } else {
+                System.out.println("⚠️ El recurso ya está prestado.");
+            }
+        } else {
+            System.out.println("❌ Este recurso no se puede prestar.");
+        }
+    }
+
+    private void devolverRecurso() {
+        System.out.print("Ingrese el título del recurso a devolver: ");
+        String titulo = scanner.nextLine();
+        var recurso = gestorRecursos.buscarPorTitulo(titulo);
+
+        if (recurso instanceof Prestable prestable) {
+            if (prestable.devolver()) {
+                System.out.println("✅ Recurso devuelto correctamente.");
+            } else {
+                System.out.println("⚠️ Este recurso no estaba prestado.");
+            }
+        } else {
+            System.out.println("❌ Este recurso no es retornable.");
+        }
+    }
+
+    private void renovarRecurso() {
+        System.out.print("Ingrese el título del recurso a renovar: ");
+        String titulo = scanner.nextLine();
+        var recurso = gestorRecursos.buscarPorTitulo(titulo);
+
+        if (recurso instanceof Renovable renovable) {
+            if (renovable.renovar()) {
+                System.out.println("✅ Recurso renovado.");
+            } else {
+                System.out.println("⚠️ No se puede renovar este recurso (ya alcanzó el límite o no está prestado).");
+            }
+        } else {
+            System.out.println("❌ Este recurso no es renovable.");
+        }
+    }
+
 
 }

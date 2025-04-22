@@ -1,8 +1,9 @@
 package modelo.recurso;
 
-public class Audiolibro implements RecursoDigital {
+public class Audiolibro implements RecursoDigital, Prestable {
     private final String titulo;
     private final String narrador;
+    private boolean prestado = false;
 
     public Audiolibro(String titulo, String narrador) {
         this.titulo = titulo;
@@ -25,7 +26,30 @@ public class Audiolibro implements RecursoDigital {
     }
 
     @Override
+    public boolean prestar() {
+        if (!prestado) {
+            prestado = true;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean devolver() {
+        if (prestado) {
+            prestado = false;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean estaPrestado() {
+        return prestado;
+    }
+
+    @Override
     public String getEstado() {
-        return "";
+        return prestado ? "PRESTADO" : "DISPONIBLE";
     }
 }
