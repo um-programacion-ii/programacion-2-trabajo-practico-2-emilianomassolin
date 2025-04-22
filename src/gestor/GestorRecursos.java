@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorRecursos {
-    private final List<RecursoDigital> recursos = new ArrayList<>();
+     private final List<RecursoDigital> recursos = new ArrayList<>();
 
     public void agregarRecurso(RecursoDigital recurso) {
         recursos.add(recurso);
