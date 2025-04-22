@@ -33,6 +33,7 @@ public class Consola {
             System.out.println("6. Prestar Recurso");
             System.out.println("7. Devolver Recurso");
             System.out.println("8. Renovar Recurso");
+            System.out.println("9. Buscar usuario por ID");
 
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -47,6 +48,7 @@ public class Consola {
                 case 6 -> prestarRecurso();
                 case 7 -> devolverRecurso();
                 case 8 -> renovarRecurso();
+                case 9 -> buscarUsuarioPorId();
 
                 default -> System.out.println("Opción inválida");
             }
@@ -158,6 +160,16 @@ public class Consola {
             }
         } else {
             servicioNotificaciones.notificar("❌ Este recurso no es renovable: " + titulo);
+        }
+    }
+    private void buscarUsuarioPorId() {
+        System.out.print("Ingrese el ID del usuario: ");
+        String id = scanner.nextLine();
+        var usuario = gestorUsuarios.buscarUsuario(id);
+        if (usuario != null) {
+            System.out.println("🔍 Usuario encontrado: " + usuario);
+        } else {
+            System.out.println("❌ No se encontró ningún usuario con ese ID.");
         }
     }
 
