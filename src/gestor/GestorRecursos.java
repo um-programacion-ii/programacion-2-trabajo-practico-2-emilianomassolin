@@ -19,6 +19,15 @@ public class GestorRecursos {
             System.out.println("----------------------------------");
         }
     }
+    public RecursoDigital buscarPorTitulo(String titulo) {
+        for (RecursoDigital r : recursos) {
+            if (r.getTitulo().equalsIgnoreCase(titulo)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
 
 
 }
