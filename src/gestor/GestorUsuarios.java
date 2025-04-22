@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestorUsuarios {
-    private Map<String, Usuario> usuarios = new HashMap<>();
+     private Map<String, Usuario> usuarios = new HashMap<>();
     private ServicioNotificaciones servicioNotificaciones;
 
     public GestorUsuarios(ServicioNotificaciones servicioNotificaciones) {
