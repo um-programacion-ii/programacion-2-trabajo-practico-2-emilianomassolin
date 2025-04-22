@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorRecursos {
-    private final List<RecursoDigital> recursos = new ArrayList<>();
+     private final List<RecursoDigital> recursos = new ArrayList<>();
 
     public void agregarRecurso(RecursoDigital recurso) {
         recursos.add(recurso);
@@ -19,7 +19,7 @@ public class GestorRecursos {
             System.out.println("----------------------------------");
         }
     }
-    public RecursoDigital buscarPorTitulo(String titulo) {
+     public RecursoDigital buscarPorTitulo(String titulo) {
         for (RecursoDigital r : recursos) {
             if (r.getTitulo().equalsIgnoreCase(titulo)) {
                 return r;
