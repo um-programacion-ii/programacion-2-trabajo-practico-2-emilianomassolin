@@ -34,6 +34,7 @@ public class Consola {
             System.out.println("7. Devolver Recurso");
             System.out.println("8. Renovar Recurso");
             System.out.println("9. Buscar usuario por ID");
+            System.out.println("10 Buscar recurso por titulo");
 
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -49,6 +50,7 @@ public class Consola {
                 case 7 -> devolverRecurso();
                 case 8 -> renovarRecurso();
                 case 9 -> buscarUsuarioPorId();
+                case 10 -> buscarRecursoPorTitulo();
 
                 default -> System.out.println("Opción inválida");
             }
@@ -172,6 +174,19 @@ public class Consola {
             System.out.println("❌ No se encontró ningún usuario con ese ID.");
         }
     }
+    private void buscarRecursoPorTitulo() {
+        System.out.print("Ingrese el título a buscar: ");
+        String titulo = scanner.nextLine();
+        RecursoDigital resultado = gestorRecursos.buscarPorTitulo(titulo);
+
+        if (resultado != null) {
+            System.out.println("🔍 Recurso encontrado:");
+            System.out.println(resultado);
+        } else {
+            System.out.println("❌ No se encontró ningún recurso con ese título.");
+        }
+    }
+
 
 
 

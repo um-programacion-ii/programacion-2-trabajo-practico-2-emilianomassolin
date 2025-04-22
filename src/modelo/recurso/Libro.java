@@ -60,4 +60,9 @@ public class Libro implements RecursoDigital, Prestable, Renovable {
     public String getEstado() {
         return prestado ? "PRESTADO" : "DISPONIBLE";
     }
+    @Override
+    public String toString() {
+        return "📖 Libro: " + getTitulo() + " | Autor: " + getAutor();
+    }
+
 }

@@ -6,6 +6,11 @@ public class Revista implements RecursoDigital, Prestable, Renovable {
     private boolean prestado = false;
     private int renovaciones = 0;
     private final int MAX_RENOVACIONES = 1;
+    @Override
+    public String toString() {
+        return "📰 Revista: " + getTitulo() + " | Descripción: " + getDescripcion();
+    }
+
 
     public Revista(String titulo, int numeroEdicion) {
         this.titulo = titulo;

@@ -19,14 +19,13 @@ public class GestorRecursos {
             System.out.println("----------------------------------");
         }
     }
-     public RecursoDigital buscarPorTitulo(String titulo) {
-        for (RecursoDigital r : recursos) {
-            if (r.getTitulo().equalsIgnoreCase(titulo)) {
-                return r;
-            }
-        }
-        return null;
+    public RecursoDigital buscarPorTitulo(String titulo) {
+        return recursos.stream()
+                .filter(r -> r.getTitulo().equalsIgnoreCase(titulo))
+                .findFirst()
+                .orElse(null);
     }
+
 
 
 
