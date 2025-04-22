@@ -4,6 +4,11 @@ public class Audiolibro implements RecursoDigital, Prestable {
     private final String titulo;
     private final String narrador;
     private boolean prestado = false;
+    @Override
+    public String toString() {
+        return "🎧 Audiolibro: " + getTitulo() + " | Narrador: " + getAutor();
+    }
+
 
     public Audiolibro(String titulo, String narrador) {
         this.titulo = titulo;
@@ -52,4 +57,12 @@ public class Audiolibro implements RecursoDigital, Prestable {
     public String getEstado() {
         return prestado ? "PRESTADO" : "DISPONIBLE";
     }
+
+    @Override
+    public String getCategoria() {
+        return "Audiolibro";
+    }
+
+
 }
+

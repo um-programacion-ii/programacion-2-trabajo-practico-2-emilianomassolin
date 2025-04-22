@@ -5,7 +5,10 @@ import gestor.GestorUsuarios;
 import modelo.recurso.*;
 import modelo.usuario.Usuario;
 import notificaciones.ServicioNotificaciones;
+import util.ComparadoresRecursos;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Consola {
@@ -34,6 +37,13 @@ public class Consola {
             System.out.println("7. Devolver Recurso");
             System.out.println("8. Renovar Recurso");
             System.out.println("9. Buscar usuario por ID");
+            System.out.println("10 Buscar recurso por titulo");
+            System.out.println("11 Filtrar recurso por categoria");
+            System.out.println("12. Ordenar recursos por título");
+            System.out.println("13. Ordenar recursos por categoría");
+            System.out.println("14. Ordenar recursos por estado");
+
+
 
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -49,6 +59,12 @@ public class Consola {
                 case 7 -> devolverRecurso();
                 case 8 -> renovarRecurso();
                 case 9 -> buscarUsuarioPorId();
+                case 10 -> buscarRecursoPorTitulo();
+                case 11 -> filtrarRecursosPorCategoria();
+                case 12 -> ordenarRecursosPor(ComparadoresRecursos.porTituloAsc(), "Título");
+                case 13 -> ordenarRecursosPor(ComparadoresRecursos.porCategoriaAsc(), "Categoría");
+                case 14 -> ordenarRecursosPor(ComparadoresRecursos.porEstadoAsc(), "Estado");
+
 
                 default -> System.out.println("Opción inválida");
             }
@@ -172,6 +188,39 @@ public class Consola {
             System.out.println("❌ No se encontró ningún usuario con ese ID.");
         }
     }
+    private void buscarRecursoPorTitulo() {
+        System.out.print("Ingrese el título a buscar: ");
+        String titulo = scanner.nextLine();
+        RecursoDigital resultado = gestorRecursos.buscarPorTitulo(titulo);
+
+        if (resultado != null) {
+            System.out.println("🔍 Recurso encontrado:");
+            System.out.println(resultado);
+        } else {
+            System.out.println("❌ No se encontró ningún recurso con ese título.");
+        }
+    }
+    private void filtrarRecursosPorCategoria() {
+        System.out.print("Ingrese la categoría (Libro, Revista, Audiolibro): ");
+        String categoria = scanner.nextLine();
+
+        List<RecursoDigital> filtrados = gestorRecursos.filtrarPorCategoria(categoria);
+
+        if (filtrados.isEmpty()) {
+            System.out.println("❌ No se encontraron recursos en la categoría: " + categoria);
+        } else {
+            System.out.println("📂 Recursos encontrados en categoría " + categoria + ":");
+            filtrados.forEach(System.out::println);
+        }
+    }
+    private void ordenarRecursosPor(Comparator<RecursoDigital> comparador, String criterio) {
+        List<RecursoDigital> ordenados = gestorRecursos.obtenerRecursosOrdenados(comparador);
+        System.out.println("📑 Recursos ordenados por " + criterio + ":");
+        ordenados.forEach(System.out::println);
+    }
+
+
+
 
 
 
