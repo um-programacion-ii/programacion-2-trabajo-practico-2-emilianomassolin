@@ -201,18 +201,32 @@ public class Consola {
         }
     }
     private void filtrarRecursosPorCategoria() {
-        System.out.print("Ingrese la categoría (Libro, Revista, Audiolibro): ");
-        String categoria = scanner.nextLine();
+        System.out.println("📋 Categorías disponibles:");
+        for (CategoriaRecurso cat : CategoriaRecurso.values()) {
+            System.out.println(" - " + cat.name());
+        }
 
-        List<RecursoDigital> filtrados = gestorRecursos.filtrarPorCategoria(categoria);
+        System.out.print("Ingrese la categoría: ");
+        String categoriaStr = scanner.nextLine();
 
-        if (filtrados.isEmpty()) {
-            System.out.println("❌ No se encontraron recursos en la categoría: " + categoria);
-        } else {
-            System.out.println("📂 Recursos encontrados en categoría " + categoria + ":");
-            filtrados.forEach(System.out::println);
+        try {
+            CategoriaRecurso categoria = CategoriaRecurso.valueOf(categoriaStr.toUpperCase());
+
+            List<RecursoDigital> filtrados = gestorRecursos.filtrarPorCategoria(categoria);
+
+            if (filtrados.isEmpty()) {
+                System.out.println("❌ No se encontraron recursos en la categoría: " + categoria);
+            } else {
+                System.out.println("📂 Recursos encontrados en categoría " + categoria + ":");
+                filtrados.forEach(System.out::println);
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("⚠️ Categoría inválida. Intente nuevamente.");
         }
     }
+
+
     private void ordenarRecursosPor(Comparator<RecursoDigital> comparador, String criterio) {
         List<RecursoDigital> ordenados = gestorRecursos.obtenerRecursosOrdenados(comparador);
         System.out.println("📑 Recursos ordenados por " + criterio + ":");

@@ -6,6 +6,6 @@ public interface RecursoDigital {
     public abstract String getDescripcion(); // ya está
     String getAutor();
     String getEstado();
-    String getCategoria();
+    CategoriaRecurso getCategoria();
 
 }

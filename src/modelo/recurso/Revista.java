@@ -72,7 +72,7 @@ public class Revista implements RecursoDigital, Prestable, Renovable {
     }
 
     @Override
-    public String getCategoria() {
-        return "Revista";
-    }
-}
+    public CategoriaRecurso getCategoria() {
+        return CategoriaRecurso.REVISTA;
+    }}
+

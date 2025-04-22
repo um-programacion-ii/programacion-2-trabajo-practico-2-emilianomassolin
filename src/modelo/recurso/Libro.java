@@ -60,9 +60,10 @@ public class Libro implements RecursoDigital, Prestable, Renovable {
     public String getEstado() {
         return prestado ? "PRESTADO" : "DISPONIBLE";
     }
+
     @Override
-    public String getCategoria() {
-        return "Libro";
+    public CategoriaRecurso getCategoria() {
+        return CategoriaRecurso.LIBRO;
     }
 
     @Override
