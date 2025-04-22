@@ -4,17 +4,20 @@ import gestor.GestorRecursos;
 import gestor.GestorUsuarios;
 import modelo.recurso.*;
 import modelo.usuario.Usuario;
+import notificaciones.ServicioNotificaciones;
 
 import java.util.Scanner;
 
 public class Consola {
     private GestorUsuarios gestorUsuarios;
     private GestorRecursos gestorRecursos;
+    private ServicioNotificaciones servicioNotificaciones;
     private Scanner scanner;
 
-    public Consola(GestorUsuarios gestorUsuarios, GestorRecursos gestorRecursos) {
+    public Consola(GestorUsuarios gestorUsuarios, GestorRecursos gestorRecursos, ServicioNotificaciones servicioNotificaciones) {
         this.gestorUsuarios = gestorUsuarios;
         this.gestorRecursos = gestorRecursos;
+        this.servicioNotificaciones = servicioNotificaciones;
         this.scanner = new Scanner(System.in);
     }
 
@@ -115,14 +118,15 @@ public class Consola {
 
         if (recurso instanceof Prestable prestable) {
             if (prestable.prestar()) {
-                System.out.println("✅ Recurso prestado exitosamente.");
+                servicioNotificaciones.notificar("✅ Recurso prestado exitosamente: " + titulo);
             } else {
-                System.out.println("⚠️ El recurso ya está prestado.");
+                servicioNotificaciones.notificar("⚠️ El recurso ya está prestado: " + titulo);
             }
         } else {
-            System.out.println("❌ Este recurso no se puede prestar.");
+            servicioNotificaciones.notificar("❌ Este recurso no se puede prestar: " + titulo);
         }
     }
+
 
     private void devolverRecurso() {
         System.out.print("Ingrese el título del recurso a devolver: ");
@@ -131,14 +135,15 @@ public class Consola {
 
         if (recurso instanceof Prestable prestable) {
             if (prestable.devolver()) {
-                System.out.println("✅ Recurso devuelto correctamente.");
+                servicioNotificaciones.notificar("✅ Recurso devuelto correctamente: " + titulo);
             } else {
-                System.out.println("⚠️ Este recurso no estaba prestado.");
+                servicioNotificaciones.notificar("⚠️ Este recurso no estaba prestado: " + titulo);
             }
         } else {
-            System.out.println("❌ Este recurso no es retornable.");
+            servicioNotificaciones.notificar("❌ Este recurso no es retornable: " + titulo);
         }
     }
+
 
     private void renovarRecurso() {
         System.out.print("Ingrese el título del recurso a renovar: ");
@@ -147,14 +152,15 @@ public class Consola {
 
         if (recurso instanceof Renovable renovable) {
             if (renovable.renovar()) {
-                System.out.println("✅ Recurso renovado.");
+                servicioNotificaciones.notificar("✅ Recurso renovado: " + titulo);
             } else {
-                System.out.println("⚠️ No se puede renovar este recurso (ya alcanzó el límite o no está prestado).");
+                servicioNotificaciones.notificar("⚠️ No se puede renovar este recurso (ya alcanzó el límite o no está prestado): " + titulo);
             }
         } else {
-            System.out.println("❌ Este recurso no es renovable.");
+            servicioNotificaciones.notificar("❌ Este recurso no es renovable: " + titulo);
         }
     }
+
 
 
 }
