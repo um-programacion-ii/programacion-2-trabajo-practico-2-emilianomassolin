@@ -59,9 +59,10 @@ public class Audiolibro implements RecursoDigital, Prestable {
     }
 
     @Override
-    public String getCategoria() {
-        return "Audiolibro";
+    public CategoriaRecurso getCategoria() {
+        return CategoriaRecurso.AUDIOLIBRO;
     }
+
 
 
 }

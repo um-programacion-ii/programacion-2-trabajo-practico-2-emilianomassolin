@@ -1,4 +1,7 @@
 package modelo.recurso;
 
-public class CategoriaRecurso {
+public enum CategoriaRecurso {
+    LIBRO,
+    REVISTA,
+    AUDIOLIBRO
 }

@@ -1,5 +1,6 @@
 package gestor;
 
+import modelo.recurso.CategoriaRecurso;
 import modelo.recurso.RecursoDigital;
 
 import java.util.ArrayList;
@@ -27,11 +28,12 @@ public class GestorRecursos {
                 .findFirst()
                 .orElse(null);
     }
-    public List<RecursoDigital> filtrarPorCategoria(String categoria) {
+    public List<RecursoDigital> filtrarPorCategoria(CategoriaRecurso categoria) {
         return recursos.stream()
-                .filter(r -> r.getCategoria().equalsIgnoreCase(categoria))
-                .toList(); // Java 16+; si usás Java 8, reemplazá con `.collect(Collectors.toList())`
+                .filter(r -> r.getCategoria() == categoria)
+                .toList();
     }
+
     public List<RecursoDigital> obtenerRecursosOrdenados(Comparator<RecursoDigital> comparador) {
         return recursos.stream()
                 .sorted(comparador)
