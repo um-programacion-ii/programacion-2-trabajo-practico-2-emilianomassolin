@@ -1,8 +1,9 @@
 package notificaciones;
 
-public class ServicioNotificacionesSMS implements ServicioNotificaciones {
+class ServicioNotificacionesSMS implements ServicioNotificaciones {
     @Override
-    public void enviarNotificacion(String destinatario, String mensaje) {
-        System.out.println("📱 SMS a " + destinatario + ": " + mensaje);
+    public void notificar(String mensaje) {
+        System.out.println("📧 Notificación por SMS: " + mensaje);
     }
 }
+
