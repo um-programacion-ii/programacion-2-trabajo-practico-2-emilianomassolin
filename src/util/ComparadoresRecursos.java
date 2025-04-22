@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 public class ComparadoresRecursos {
 
-    public static Comparator<RecursoDigital> porTituloAsc() {
+     public static Comparator<RecursoDigital> porTituloAsc() {
         return Comparator.comparing(RecursoDigital::getTitulo, String.CASE_INSENSITIVE_ORDER);
     }
 
