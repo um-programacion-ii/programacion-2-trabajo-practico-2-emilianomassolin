@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 
 public class GeneradorReportes {
 
-    private final List<Prestamo> historialPrestamos;
+    private List<Prestamo> historialPrestamos = List.of();
 
-    public GeneradorReportes(List<Prestamo> historialPrestamos) {
+    public GeneradorReportes() {
         this.historialPrestamos = historialPrestamos;
     }
 
