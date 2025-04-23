@@ -93,7 +93,7 @@ public class Consola {
         } while (opcion != 3);
     }
 
-    private void registrarUsuario() {
+     private void registrarUsuario() {
         System.out.print("Ingrese ID: ");
         String id = scanner.nextLine();
         System.out.print("Ingrese nombre: ");
@@ -105,7 +105,7 @@ public class Consola {
         gestorUsuarios.registrarUsuario(usuario);
         System.out.println("Usuario registrado con éxito.");
     }
-    private void registrarRecurso() {
+     private void registrarRecurso() {
         System.out.println("Seleccionar tipo de recurso:");
         System.out.println("1. Libro");
         System.out.println("2. Revista");
@@ -120,7 +120,7 @@ public class Consola {
             default -> System.out.println("❌ Opción no válida.");
         }
     }
-    private void registrarLibro() {
+     private void registrarLibro() {
         System.out.print("Título del libro: ");
         String titulo = scanner.nextLine();
         System.out.print("Autor: ");
