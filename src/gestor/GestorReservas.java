@@ -13,11 +13,11 @@ import java.util.concurrent.Executors;
 
 public class GestorReservas {
     private final Map<RecursoDigital, Queue<Reserva>> reservasPorRecurso = new ConcurrentHashMap<>();
-    private final ServicioNotificaciones servicioNotificaciones;
+    private ServicioNotificaciones servicioNotificaciones;
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
-    public GestorReservas(ServicioNotificaciones servicioNotificaciones) {
-        this.servicioNotificaciones = servicioNotificaciones;
+    public GestorReservas() {
+        this.servicioNotificaciones = null;
     }
 
     public synchronized void agregarReserva(Reserva reserva) {

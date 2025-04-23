@@ -10,6 +10,7 @@ import modelo.recurso.*;
 import modelo.reserva.Reserva;
 import modelo.usuario.Usuario;
 import notificaciones.ServicioNotificaciones;
+import reportes.GeneradorReportes;
 import util.ComparadoresRecursos;
 
 import java.util.Comparator;
@@ -23,13 +24,16 @@ public class Consola {
     private ServicioNotificaciones servicioNotificaciones;
     private Scanner scanner;
     private GestorReservas gestorReservas;
+    private GeneradorReportes generadorReportes;
 
-    public Consola(GestorUsuarios gestorUsuarios, GestorRecursos gestorRecursos, ServicioNotificaciones servicioNotificaciones) {
+    public Consola(GestorUsuarios gestorUsuarios, GestorRecursos gestorRecursos, ServicioNotificaciones servicioNotificaciones,GeneradorReportes generadorReportes) {
         this.gestorUsuarios = gestorUsuarios;
         this.gestorRecursos = gestorRecursos;
         this.servicioNotificaciones = servicioNotificaciones;
         this.scanner = new Scanner(System.in);
         this.gestorPrestamos =new GestorPrestamos();
+        this.gestorReservas= new GestorReservas();
+        this.generadorReportes= generadorReportes;
     }
 
     public void iniciar() {
@@ -51,6 +55,9 @@ public class Consola {
             System.out.println("13. Ordenar recursos por categoría");
             System.out.println("14. Ordenar recursos por estado");
             System.out.println("15. Reservar y ver estado de recurso ");
+            System.out.println("16. Ver recursos más prestados");
+
+
 
 
 
@@ -75,6 +82,9 @@ public class Consola {
                 case 13 -> ordenarRecursosPor(ComparadoresRecursos.porCategoriaAsc(), "Categoría");
                 case 14 -> ordenarRecursosPor(ComparadoresRecursos.porEstadoAsc(), "Estado");
                 case 15 -> reservarRecurso();
+                case 16 -> mostrarRecursosMasPrestados();
+
+
 
 
 
@@ -278,6 +288,11 @@ public class Consola {
             System.out.println("❌ " + e.getMessage());
         }
     }
+    private void mostrarRecursosMasPrestados() {
+        System.out.println("📊 Recursos más prestados:");
+        generadorReportes.mostrarRecursosMasPrestados();
+    }
+
 
 
 }
