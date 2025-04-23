@@ -1,5 +1,7 @@
 package consola;
 
+import excepciones.RecursoNoDisponibleException;
+import excepciones.UsuarioNoEncontradoException;
 import gestor.GestorRecursos;
 import gestor.GestorUsuarios;
 import modelo.recurso.*;
@@ -134,14 +136,25 @@ public class Consola {
         String titulo = scanner.nextLine();
         var recurso = gestorRecursos.buscarPorTitulo(titulo);
 
-        if (recurso instanceof Prestable prestable) {
-            if (prestable.prestar()) {
-                servicioNotificaciones.notificar("✅ Recurso prestado exitosamente: " + titulo);
-            } else {
-                servicioNotificaciones.notificar("⚠️ El recurso ya está prestado: " + titulo);
+        try {
+            if (recurso == null) {
+                throw new IllegalArgumentException("El recurso no existe: " + titulo);
             }
-        } else {
-            servicioNotificaciones.notificar("❌ Este recurso no se puede prestar: " + titulo);
+
+            if (recurso instanceof Prestable prestable) {
+                if (prestable.prestar()) {
+                    servicioNotificaciones.notificar("✅ Recurso prestado exitosamente: " + titulo);
+                } else {
+                    throw new excepciones.RecursoNoDisponibleException("⚠️ El recurso ya está prestado: " + titulo);
+                }
+            } else {
+                servicioNotificaciones.notificar("❌ Este recurso no se puede prestar: " + titulo);
+            }
+
+        } catch (RecursoNoDisponibleException e) {
+            servicioNotificaciones.notificar(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            servicioNotificaciones.notificar("❌ Error: " + e.getMessage());
         }
     }
 
@@ -181,13 +194,15 @@ public class Consola {
     private void buscarUsuarioPorId() {
         System.out.print("Ingrese el ID del usuario: ");
         String id = scanner.nextLine();
-        var usuario = gestorUsuarios.buscarUsuario(id);
-        if (usuario != null) {
+
+        try {
+            var usuario = gestorUsuarios.buscarUsuario(id);
             System.out.println("🔍 Usuario encontrado: " + usuario);
-        } else {
-            System.out.println("❌ No se encontró ningún usuario con ese ID.");
+        } catch (UsuarioNoEncontradoException e) {
+            System.out.println("❌ " + e.getMessage());
         }
     }
+
     private void buscarRecursoPorTitulo() {
         System.out.print("Ingrese el título a buscar: ");
         String titulo = scanner.nextLine();
