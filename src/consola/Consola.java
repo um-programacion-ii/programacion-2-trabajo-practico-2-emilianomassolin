@@ -143,7 +143,7 @@ public class Consola {
     }
 
 
-    private void renovarRecurso() {
+     private void renovarRecurso() {
         System.out.print("Ingrese el título del recurso a renovar: ");
         String titulo = scanner.nextLine();
         var recurso = gestorRecursos.buscarPorTitulo(titulo);
