@@ -60,8 +60,8 @@ public class Consola {
                 case 3 -> System.out.println("Finalizando...");
                 case 4 -> registrarRecurso();
                 case 5 -> gestorRecursos.listarRecursos();
-                case 6 -> prestarRecurso();
-                case 7 -> devolverRecurso();
+                case 6 -> gestionarPrestamos();
+                case 7 -> devolverPrestamo();
                 case 8 -> renovarRecurso();
                 case 9 -> buscarUsuarioPorId();
                 case 10 -> buscarRecursoPorTitulo();
@@ -250,6 +250,42 @@ public class Consola {
         System.out.println("📑 Recursos ordenados por " + criterio + ":");
         ordenados.forEach(System.out::println);
     }
+    private void gestionarPrestamos() {
+        System.out.print("Ingrese el ID del usuario: ");
+        String idUsuario = scanner.nextLine();
+        Usuario usuario = null;
+        try {
+            usuario = gestorUsuarios.buscarUsuario(idUsuario);
+        } catch (UsuarioNoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (usuario == null) {
+            System.out.println("❌ Usuario no encontrado.");
+            return;
+        }
+
+        System.out.print("Ingrese el título del recurso: ");
+        String titulo = scanner.nextLine();
+        RecursoDigital recurso = gestorRecursos.buscarPorTitulo(titulo);
+
+        try {
+            gestorPrestamos.prestarRecurso(usuario, recurso);
+            System.out.println("✅ Préstamo registrado exitosamente.");
+        } catch (RecursoNoDisponibleException e) {
+            System.out.println("⚠️ Error al prestar recurso: " + e.getMessage());
+        }
+    }
+
+    private void devolverPrestamo() {
+        System.out.print("Ingrese el título del recurso a devolver: ");
+        String titulo = scanner.nextLine();
+        RecursoDigital recurso = gestorRecursos.buscarPorTitulo(titulo);
+
+        gestorPrestamos.devolverRecurso(recurso);
+        System.out.println("✅ Recurso devuelto.");
+    }
+
 
 
 
