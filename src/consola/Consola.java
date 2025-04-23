@@ -2,6 +2,7 @@ package consola;
 
 import excepciones.RecursoNoDisponibleException;
 import excepciones.UsuarioNoEncontradoException;
+import gestor.GestorPrestamos;
 import gestor.GestorRecursos;
 import gestor.GestorUsuarios;
 import modelo.recurso.*;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Consola {
+    private final GestorPrestamos gestorPrestamos;
     private GestorUsuarios gestorUsuarios;
     private GestorRecursos gestorRecursos;
     private ServicioNotificaciones servicioNotificaciones;
@@ -24,6 +26,7 @@ public class Consola {
         this.gestorRecursos = gestorRecursos;
         this.servicioNotificaciones = servicioNotificaciones;
         this.scanner = new Scanner(System.in);
+        this.gestorPrestamos =new GestorPrestamos();
     }
 
     public void iniciar() {
