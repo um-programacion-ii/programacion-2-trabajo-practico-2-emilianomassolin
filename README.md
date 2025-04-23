@@ -1,11 +1,116 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/tc38IXJF)
 # 📚 Trabajo Práctico: Sistema de Gestión de Biblioteca Digital (Java 21+)
+# 📚 Sistema de Gestión de Biblioteca Digital
+
+Este proyecto implementa un sistema en Java para la gestión de una biblioteca digital, aplicando principios de programación orientada a objetos y principios SOLID. El sistema permite registrar usuarios y recursos digitales, realizar préstamos, reservas, devoluciones, alertas y notificaciones, entre otras funcionalidades.
+
+---
+
+## 🧠 ¿Cómo funciona el sistema?
+
+### 🏗️ Arquitectura general
+
+El sistema está organizado en una estructura modular con los siguientes paquetes:
+
+- `modelo.usuario`: contiene la lógica relacionada con los usuarios.
+- `modelo.recurso`: incluye las clases de recursos digitales como libros y videos.
+- `gestor`: contiene los gestores de usuarios, recursos y préstamos.
+- `notificaciones`: gestiona alertas y notificaciones del sistema.
+- `excepciones`: define excepciones personalizadas.
+- `main`: contiene la clase `Main` y la clase `Consola` que gestiona la interacción.
+
+### 🧩 Componentes principales
+
+- **`Usuario`**: Representa un lector registrado.
+- **`RecursoDigital`** y subclases (`Libro`, etc.): Representan los recursos de la biblioteca.
+- **`GestorUsuarios`**: Administra operaciones sobre los usuarios.
+- **`GestorRecursos`**: Controla la gestión de recursos digitales.
+- **`GestorPrestamos`**: Maneja los préstamos, devoluciones y renovaciones.
+- **`ServicioNotificaciones`**: Interfaz para enviar notificaciones por consola o por otro canal.
+- **`Consola`**: Menú de consola para interactuar con el sistema.
+
+### 🔁 Flujo de trabajo del sistema
+
+1. El usuario inicia la aplicación y accede al menú de consola.
+2. Puede registrar usuarios, agregar recursos y realizar operaciones como prestar, devolver, reservar o renovar.
+3. El sistema muestra alertas y notificaciones por:
+    - Recursos reservados que se vuelven disponibles.
+    - Vencimientos de préstamos.
+4. Toda interacción se realiza por consola.
+
+---
+
+## ⚙️ ¿Cómo ponerlo en funcionamiento?
+
+### 📋 Requisitos previos
+
+- Java 21 o superior instalado
+- Compilador `javac` y entorno de ejecución `java` en PATH
+- IDE como IntelliJ IDEA o VSCode (opcional pero recomendado)
+
+### 🛠️ Instrucciones de puesta en marcha
+
+1. Clonar o descargar el proyecto:
+   ```bash
+   git clone https://github.com/tuusuario/biblioteca-digital.git
+   cd biblioteca-digital
+   ```
+
+2. Compilar el proyecto:
+   ```bash
+   javac -d out src/**/*.java
+   ```
+
+3. Ejecutar el sistema:
+   ```bash
+   java -cp out main.Main
+   ```
+
+> 📦 *El proyecto usa una estructura de carpetas estándar: `src/`, `out/` y está completamente modularizado.*
+
+---
+
+## 🧪 ¿Cómo probar cada aspecto desarrollado?
+
+### ✅ Ejemplos de uso y pruebas por funcionalidad
+
+#### 🔹 Registrar usuario
+
+```
+Menú → 1. Registrar nuevo usuario
+Nombre: Juan
+Email: juan@mail.com
+```
+
+#### 🔹 Registrar libro
+
+```
+Menú → 2. Registrar nuevo recurso digital
+Tipo: Libro
+Título: El Principito
+Autor: Antoine de Saint-Exupéry
+```
+
+#### 🔹 Prestar recurso
+
+```
+Menú → 3. Prestar recurso
+Email: juan@mail.com
+ID recurso: 1
+```
+
+
+
+---
+
+🎓 Desarrollado como parte del Trabajo Práctico de Programación Avanzada – Ingeniería en Informática
 
 ## 📌 Objetivo General
 
 Desarrollar un sistema de gestión de biblioteca digital que implemente los cinco principios SOLID, programación orientada a objetos, y conceptos avanzados de Java. El sistema deberá manejar diferentes tipos de recursos digitales, préstamos, reservas, y notificaciones en tiempo real.
 
 ## 👨‍🎓 Información del Alumno
-- **Nombre y Apellido**: [Nombre y Apellido del Alumno]
+- **Nombre y Apellido**: [Emiliano Massolin]
 
 ## 📋 Requisitos Adicionales
 
