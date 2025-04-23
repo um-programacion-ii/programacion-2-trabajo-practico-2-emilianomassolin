@@ -1,5 +1,5 @@
 package notificaciones;
 
-public interface ServicioNotificaciones {
+ public interface ServicioNotificaciones {
     void notificar(String mensaje);
 }
