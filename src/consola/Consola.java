@@ -4,8 +4,10 @@ import excepciones.RecursoNoDisponibleException;
 import excepciones.UsuarioNoEncontradoException;
 import gestor.GestorPrestamos;
 import gestor.GestorRecursos;
+import gestor.GestorReservas;
 import gestor.GestorUsuarios;
 import modelo.recurso.*;
+import modelo.reserva.Reserva;
 import modelo.usuario.Usuario;
 import notificaciones.ServicioNotificaciones;
 import util.ComparadoresRecursos;
@@ -20,6 +22,7 @@ public class Consola {
     private GestorRecursos gestorRecursos;
     private ServicioNotificaciones servicioNotificaciones;
     private Scanner scanner;
+    private GestorReservas gestorReservas;
 
     public Consola(GestorUsuarios gestorUsuarios, GestorRecursos gestorRecursos, ServicioNotificaciones servicioNotificaciones) {
         this.gestorUsuarios = gestorUsuarios;
@@ -47,6 +50,8 @@ public class Consola {
             System.out.println("12. Ordenar recursos por título");
             System.out.println("13. Ordenar recursos por categoría");
             System.out.println("14. Ordenar recursos por estado");
+            System.out.println("15. Reservar y ver estado de recurso ");
+
 
 
 
@@ -69,6 +74,8 @@ public class Consola {
                 case 12 -> ordenarRecursosPor(ComparadoresRecursos.porTituloAsc(), "Título");
                 case 13 -> ordenarRecursosPor(ComparadoresRecursos.porCategoriaAsc(), "Categoría");
                 case 14 -> ordenarRecursosPor(ComparadoresRecursos.porEstadoAsc(), "Estado");
+                case 15 -> reservarRecurso();
+
 
 
                 default -> System.out.println("Opción inválida");
@@ -133,49 +140,6 @@ public class Consola {
         String narrador = scanner.nextLine();
         gestorRecursos.agregarRecurso(new Audiolibro(titulo, narrador));
         System.out.println("✅ Audiolibro registrado.");
-    }
-    private void prestarRecurso() {
-        System.out.print("Ingrese el título del recurso a prestar: ");
-        String titulo = scanner.nextLine();
-        var recurso = gestorRecursos.buscarPorTitulo(titulo);
-
-        try {
-            if (recurso == null) {
-                throw new IllegalArgumentException("El recurso no existe: " + titulo);
-            }
-
-            if (recurso instanceof Prestable prestable) {
-                if (prestable.prestar()) {
-                    servicioNotificaciones.notificar("✅ Recurso prestado exitosamente: " + titulo);
-                } else {
-                    throw new excepciones.RecursoNoDisponibleException("⚠️ El recurso ya está prestado: " + titulo);
-                }
-            } else {
-                servicioNotificaciones.notificar("❌ Este recurso no se puede prestar: " + titulo);
-            }
-
-        } catch (RecursoNoDisponibleException e) {
-            servicioNotificaciones.notificar(e.getMessage());
-        } catch (IllegalArgumentException e) {
-            servicioNotificaciones.notificar("❌ Error: " + e.getMessage());
-        }
-    }
-
-
-    private void devolverRecurso() {
-        System.out.print("Ingrese el título del recurso a devolver: ");
-        String titulo = scanner.nextLine();
-        var recurso = gestorRecursos.buscarPorTitulo(titulo);
-
-        if (recurso instanceof Prestable prestable) {
-            if (prestable.devolver()) {
-                servicioNotificaciones.notificar("✅ Recurso devuelto correctamente: " + titulo);
-            } else {
-                servicioNotificaciones.notificar("⚠️ Este recurso no estaba prestado: " + titulo);
-            }
-        } else {
-            servicioNotificaciones.notificar("❌ Este recurso no es retornable: " + titulo);
-        }
     }
 
 
@@ -285,11 +249,35 @@ public class Consola {
         gestorPrestamos.devolverRecurso(recurso);
         System.out.println("✅ Recurso devuelto.");
     }
+    private void reservarRecurso() {
+        System.out.println("\n📌 Reservar recurso no disponible:");
+        System.out.print(" titulo del recurso: ");
+        String idRecurso = scanner.nextLine();
+        System.out.print("🆔 ID del usuario: ");
+        String idUsuario = scanner.nextLine();
 
+        RecursoDigital recurso = gestorRecursos.buscarPorTitulo(idRecurso);
+        if (recurso == null) {
+            System.out.println("❌ Recurso no encontrado.");
+            return;
+        }
 
+        try {
+            Usuario usuario = gestorUsuarios.buscarUsuario(idUsuario);
 
+            if (!recurso.getEstado().equalsIgnoreCase("NO DISPONIBLE")) {
+                System.out.println("ℹ️ El recurso está disponible. Podés hacer el préstamo directamente.");
+                return;
+            }
 
+            Reserva nuevaReserva = new Reserva(usuario, recurso);
+            gestorReservas.agregarReserva(nuevaReserva);
+            System.out.println("✅ Reserva registrada. Serás notificado cuando el recurso esté disponible.");
 
+        } catch (UsuarioNoEncontradoException e) {
+            System.out.println("❌ " + e.getMessage());
+        }
+    }
 
 
 }
