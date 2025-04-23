@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GestorReservas {
+ public class GestorReservas {
     private final Map<RecursoDigital, Queue<Reserva>> reservasPorRecurso = new ConcurrentHashMap<>();
 
     public void agregarReserva(Reserva reserva) {
@@ -17,16 +17,11 @@ public class GestorReservas {
                 .offer(reserva);
     }
 
-    public Reserva obtenerProximaReserva(RecursoDigital recurso) {
-        Queue<Reserva> cola = reservasPorRecurso.get(recurso);
-        return (cola != null) ? cola.poll() : null;
-    }
+
 
     public Queue<Reserva> verReservas(RecursoDigital recurso) {
         return reservasPorRecurso.getOrDefault(recurso, new PriorityQueue<>());
     }
 
-    public boolean hayReservasPendientes(RecursoDigital recurso) {
-        return reservasPorRecurso.containsKey(recurso) && !reservasPorRecurso.get(recurso).isEmpty();
-    }
+
 }
